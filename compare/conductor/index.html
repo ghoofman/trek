@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trek vs Conductor</title>
+  <meta name="description" content="Looking for a Conductor alternative? How Trek compares: the agent CLIs you already use, local models, multi-repo projects and agents that keep running on your own server.">
+  <meta name="theme-color" content="#171717">
+  <meta property="og:title" content="Trek vs Conductor">
+  <meta property="og:description" content="Parallel agents in git worktrees, on a camp of your own.">
+  <meta property="og:url" content="https://gettrek.app/compare/conductor/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://gettrek.app/assets/icon-256.png">
+  <link rel="canonical" href="https://gettrek.app/compare/conductor/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.77-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.4-3.67ZM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27Z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m6 3.5 4.5 4.5L6 12.5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5V16H4V6.5ZM2 16h20l-1 2.5H3L2 16Z"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="4" width="17" height="7" rx="1.5"/><rect x="3.5" y="13" width="17" height="7" rx="1.5"/></g><circle cx="7.5" cy="7.5" r="1" fill="currentColor"/><circle cx="7.5" cy="16.5" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.66.35-1.12.64-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.24 10.24 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/></g><path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M11 18h2"/></symbol>
+</svg>
+
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Trek home">
+      <img src="/assets/icon-256.png" alt="" width="28" height="28">
+      Trek
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#worktrees">Trails</a>
+      <a href="/#server">Camp</a>
+      <a href="/#agents">Guides</a>
+      <a href="/#orchestrate">Expeditions</a>
+    </nav>
+    <a class="nav-icon" href="https://github.com/ghoofman/trek" target="_blank" rel="noopener" aria-label="Trek on GitHub" title="GitHub">
+      <svg aria-hidden="true"><use href="#i-github"/></svg>
+    </a>
+    <a class="btn btn-primary btn-sm nav-cta" data-download href="/#download">
+      <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero cmp-hero">
+    <div class="wrap">
+      <p class="eyebrow">Compare</p>
+      <h1><span class="accent">Trek</span> vs Conductor</h1>
+      <p class="lead">
+        Both run coding agents in parallel, each in its own git worktree, on your Mac. Conductor
+        wraps every workspace in a polished path from issue to merged pull request. Trek runs
+        the agent CLIs you already use across every branch and repository, and keeps them going
+        on a server of your own.
+      </p>
+      <p class="cmp-checked">
+        Checked against Conductor's <a href="https://www.conductor.build/docs/" target="_blank" rel="noopener">docs</a>,
+        <a href="https://www.conductor.build/changelog" target="_blank" rel="noopener">changelog</a> and
+        <a href="https://www.conductor.build/announcement" target="_blank" rel="noopener">announcement</a>
+        in November 2026. Spot something out of date?
+        <a href="https://github.com/ghoofman/trek/issues" target="_blank" rel="noopener">Open an issue</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section cmp-fit">
+    <div class="wrap">
+      <div class="notice reveal">
+        <h2>Conductor is winding down</h2>
+        <p>
+          On November 4, 2026, Conductor <a href="https://www.conductor.build/announcement" target="_blank" rel="noopener">announced</a>
+          it is joining Meta. From that day new users can no longer sign up or download the app.
+          Conductor Cloud goes read-only on November 13 and shuts down on November 20, and the
+          local app keeps getting new models and critical bug fixes until early 2027.
+        </p>
+        <ul class="timeline">
+          <li><b>Nov 4</b>No new sign-ups or downloads</li>
+          <li><b>Nov 13</b>Cloud workspaces go read-only</li>
+          <li><b>Nov 20</b>Conductor Cloud shuts down</li>
+          <li><b>Early 2027</b>Local app updates end</li>
+        </ul>
+      </div>
+
+      <div class="fit-grid" style="margin-top:24px">
+        <div class="fit-card trek reveal">
+          <h2><img src="/assets/favicon.png" alt="" width="22" height="22">Choose Trek if you want</h2>
+          <ul class="checks">
+            <li>A tool you can download today, with a road ahead of it</li>
+            <li>The <code>claude</code>, <code>codex</code>, <code>gemini</code> and <code>grok</code> CLIs you've installed, plus local models</li>
+            <li>Agents that keep working on your own server after you close the laptop</li>
+            <li>One agent leading the others from a built-in panel</li>
+            <li>Projects that span several repositories, with workflow tags on every branch</li>
+          </ul>
+        </div>
+        <div class="fit-card reveal">
+          <h2>Conductor may still suit you if</h2>
+          <ul class="checks plain">
+            <li>You already have it installed and lean on its pull request flow: diffs, create PR, CI checks and merge</li>
+            <li>You use setup, run and archive scripts with ports for every workspace</li>
+            <li>You start workspaces straight from Linear or GitHub issues</li>
+            <li>You run Cursor or OpenCode agents</li>
+            <li>You want to drive your Mac from the iPhone app today</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="table">
+    <div class="wrap">
+      <h2 class="cmp-h2 reveal">Side by side</h2>
+      <div class="cmp-scroll reveal">
+        <table class="cmp-table">
+          <thead>
+            <tr><th scope="col"></th><th scope="col"><img src="/assets/favicon.png" alt="" width="18" height="18">Trek</th><th scope="col">Conductor</th></tr>
+          </thead>
+          <tbody>
+            <tr class="grp"><th colspan="3" scope="colgroup">Availability</th></tr>
+            <tr><th scope="row">New users</th>
+              <td><span class="mk yes"></span>Download and start today</td>
+              <td><span class="mk no"></span>No new sign-ups or downloads since November 4, 2026 <a class="src" href="https://www.conductor.build/announcement" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Updates</th>
+              <td><span class="mk yes"></span>Actively developed</td>
+              <td><span class="mk part"></span>New models and critical fixes until early 2027 <a class="src" href="https://www.conductor.build/changelog/0.93.0-conductor-is-joining-meta" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Desktop app</th>
+              <td><span class="mk part"></span>macOS (Apple Silicon)</td>
+              <td><span class="mk part"></span>macOS <a class="src" href="https://www.conductor.build/docs/installation" target="_blank" rel="noopener">source</a></td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Agents</th></tr>
+            <tr><th scope="row">Agents</th>
+              <td><span class="mk yes"></span>Claude Code, Codex, Gemini CLI, Grok, local models</td>
+              <td><span class="mk yes"></span>Claude Code, Codex, Cursor, OpenCode <a class="src" href="https://www.conductor.build/docs/concepts/agent-modes" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Uses the CLIs you've installed</th>
+              <td><span class="mk yes"></span>Yes, in a real terminal, with your config, skills, plugins and hooks</td>
+              <td><span class="mk part"></span>Ships its own bundled Claude Code, Codex and OpenCode <a class="src" href="https://www.conductor.build/docs/reference/harnesses" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Local models</th>
+              <td><span class="mk yes"></span>Ollama or LM Studio, through Claude Code</td>
+              <td><span class="mk nd"></span>Not documented; custom providers such as OpenRouter, Bedrock and Vertex <a class="src" href="https://www.conductor.build/docs/guides/providers" target="_blank" rel="noopener">source</a></td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Coordination</th></tr>
+            <tr><th scope="row">Several agents on one branch</th>
+              <td><span class="mk yes"></span>Session tabs per worktree</td>
+              <td><span class="mk yes"></span>Several agents per workspace <a class="src" href="https://www.conductor.build/docs/concepts/parallel-agents" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">One agent driving others</th>
+              <td><span class="mk yes"></span>Built-in Global panel with trek-dev MCP tools, on your own machines</td>
+              <td><span class="mk part"></span>API, CLI and MCP manage cloud workspaces, which shut down November 20 <a class="src" href="https://www.conductor.build/docs/api/mcp" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Several repositories in one project</th>
+              <td><span class="mk yes"></span>Yes</td>
+              <td><span class="mk part"></span>Docs describe one repository per project <a class="src" href="https://www.conductor.build/docs/concepts/workspaces-and-branches" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Dev servers per worktree</th>
+              <td><span class="mk yes"></span>A dev stack per worktree, on your Mac</td>
+              <td><span class="mk yes"></span>Setup, run and archive scripts, with ten ports per workspace <a class="src" href="https://www.conductor.build/docs/reference/scripts" target="_blank" rel="noopener">source</a></td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Tracking work</th></tr>
+            <tr><th scope="row">Issue tracker</th>
+              <td><span class="mk yes"></span>Linear issue status and title on each branch</td>
+              <td><span class="mk yes"></span>Start a workspace from a Linear or GitHub issue <a class="src" href="https://www.conductor.build/docs/concepts/workflow" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Workflow tags on branches</th>
+              <td><span class="mk yes"></span>In Progress, In Review, Ready to Deploy and more, with a sidebar filter</td>
+              <td><span class="mk nd"></span>Not documented</td></tr>
+            <tr><th scope="row">Notes</th>
+              <td><span class="mk yes"></span>Kept with the branch, even after its worktree is deleted</td>
+              <td><span class="mk yes"></span>Notes and handoffs in the workspace's <code>.context</code> folder</td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Git and pull requests</th></tr>
+            <tr><th scope="row">Diffs</th>
+              <td><span class="mk part"></span>A Changes view of each worktree</td>
+              <td><span class="mk yes"></span>Diff viewer with review comments from GitHub <a class="src" href="https://www.conductor.build/docs/reference/diff-viewer" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Create, check and merge PRs</th>
+              <td><span class="mk no"></span>Not yet; check out a PR as a worktree and link PRs to branches</td>
+              <td><span class="mk yes"></span>Create PRs with drafted descriptions, follow CI checks, merge <a class="src" href="https://www.conductor.build/docs/concepts/workflow" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Git hosts</th>
+              <td><span class="mk part"></span>GitHub</td>
+              <td><span class="mk part"></span>GitHub</td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Remote and privacy</th></tr>
+            <tr><th scope="row">Keeps working when you close the laptop</th>
+              <td><span class="mk yes"></span>Run trek-server on any macOS, Windows or Linux machine you own</td>
+              <td><span class="mk part"></span>Only in Conductor Cloud, which shuts down November 20; local sessions stop <a class="src" href="https://www.conductor.build/docs/cloud" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Mobile</th>
+              <td><span class="mk part"></span>iOS and Android coming soon</td>
+              <td><span class="mk yes"></span>iPhone app that can control your Mac <a class="src" href="https://www.conductor.build/changelog/0.92.0-remote-control" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Accounts</th>
+              <td><span class="mk yes"></span>None</td>
+              <td><span class="mk part"></span>Needs GitHub and an agent provider <a class="src" href="https://www.conductor.build/docs/installation" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Analytics</th>
+              <td><span class="mk yes"></span>None</td>
+              <td><span class="mk part"></span>Feature-use analytics and crash logs; local chats stay on your Mac <a class="src" href="https://www.conductor.build/docs/reference/privacy" target="_blank" rel="noopener">source</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cmp-legend">
+        <span><span class="mk yes"></span>Yes</span>
+        <span><span class="mk part"></span>Partly, or with a catch</span>
+        <span><span class="mk no"></span>No</span>
+        <span><span class="mk nd"></span>Not in its docs</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="cmp-h2 reveal">Moving from Conductor</h2>
+      <p class="cmp-sub reveal">Most of what you know carries over. Here's where it lives in Trek.</p>
+      <div class="map reveal">
+        <div class="map-row"><span class="from">Workspace</span><span class="arrow">→</span><span class="to">A worktree, or <em>trail</em>, created next to your repository as <code>&lt;repo&gt;-&lt;branch&gt;</code></span></div>
+        <div class="map-row"><span class="from">Parallel agents in a workspace</span><span class="arrow">→</span><span class="to">Session tabs on the worktree, each a real agent CLI</span></div>
+        <div class="map-row"><span class="from">Workspace from a pull request</span><span class="arrow">→</span><span class="to">The <code>+</code> on a repository checks a PR out as a worktree</span></div>
+        <div class="map-row"><span class="from">Linear issue</span><span class="arrow">→</span><span class="to">A ticket chip on the branch, with the issue's status and title</span></div>
+        <div class="map-row"><span class="from"><code>.context</code> notes</span><span class="arrow">→</span><span class="to">Branch notes, kept even after the worktree is gone, and gathered in All Notes</span></div>
+        <div class="map-row"><span class="from">Run actions</span><span class="arrow">→</span><span class="to">A dev stack per worktree, on your Mac</span></div>
+        <div class="map-row"><span class="from">Conductor Cloud</span><span class="arrow">→</span><span class="to"><code>trek-server</code> on a machine you own, so agents keep going after you close the lid</span></div>
+        <div class="map-row"><span class="from">iPhone remote control</span><span class="arrow">→</span><span class="to">Trek for iOS and Android, coming soon</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap cmp-points">
+      <div class="reveal">
+        <p class="eyebrow">Real CLIs</p>
+        <h3>The guides you already trust.</h3>
+        <p>
+          Trek starts the <code>claude</code>, <code>codex</code>, <code>gemini</code> and <code>grok</code>
+          you've installed, in a real terminal, so your config, skills, plugins and hooks come along.
+          Local models work too, through Ollama or LM Studio.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Camp</p>
+        <h3>A camp that doesn't close.</h3>
+        <p>
+          Conductor's way to keep agents running after you close the laptop was its cloud, which
+          shuts down on November 20. Trek's camp is <code>trek-server</code>, running on a Mac,
+          Windows or Linux machine you own, with no account and no analytics.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Expeditions</p>
+        <h3>One guide leading the rest.</h3>
+        <p>
+          Trek's Global panel is an agent with tools to create worktrees, start sessions, queue
+          prompts, read their terminals and wait for them, on your own machines. It can spread one
+          plan across several repositories in the same project.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Trail log</p>
+        <h3>Know where every branch stands.</h3>
+        <p>
+          Every branch carries a workflow tag, from In Progress to Ready to Deploy, along with its
+          Linear issue, pull request and notes. Filter the sidebar by tag to see what's waiting on
+          review and what's ready to ship.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="ahead reveal">
+        <h3>Where Conductor is ahead today</h3>
+        <p>
+          Conductor built a lovely app, and some of its ground Trek hasn't covered yet. Its pull
+          request flow takes a workspace from a Linear or GitHub issue through a diff viewer, PR
+          creation with drafted descriptions, CI checks and review comments to merge. Its setup,
+          run and archive scripts give every workspace its own ports, and its iPhone app can drive
+          your Mac. If you already have it installed, it will keep working into early 2027.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer">
+    <div class="wrap reveal">
+      <img class="mark" src="/assets/icon-256.png" alt="" width="72" height="72">
+      <h2>Ready for the next leg?</h2>
+      <p>Bring your agents, your branches and your repositories. Trek is ready when you are.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" data-download href="/#download">
+          <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+        </a>
+        <a class="btn btn-ghost btn-lg" href="/">Explore Trek</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/#top"><img src="/assets/icon-256.png" alt="" width="28" height="28">Trek</a>
+        <p class="foot-blurb">Every project is a journey. Trek gives every branch its own agent.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a data-download href="/#download">Download</a></li>
+          <li><a href="/#server">Camp (trek-server)</a></li>
+          <li><a href="/#mobile">iOS &amp; Android</a></li>
+          <li><a href="/#agents">Guides</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The route</h4>
+        <ul>
+          <li><a href="/#worktrees">Trailheads</a></li>
+          <li><a href="/#attention">Signals</a></li>
+          <li><a href="/#orchestrate">Expedition lead</a></li>
+          <li><a href="/#branches">Trail log</a></li>
+          <li><a href="/#mobile">From anywhere</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Compare</h4>
+        <ul>
+          <li><a href="/compare/t3-code/">Trek vs T3 Code</a></li>
+          <li><a href="/compare/conductor/">Trek vs Conductor</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="/#download">Install the app</a></li>
+          <li><a href="/#server">Pitch camp</a></li>
+          <li><a href="https://github.com/ghoofman/trek" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Trek</span>
+      <span>Made for the long way round.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/main.js"></script>
+</body>
+</html>
