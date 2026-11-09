@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trek vs T3 Code</title>
+  <meta name="description" content="How Trek compares with T3 Code: real agent CLIs, local models, multi-repo projects and a self-hosted server, versus T3 Code's prompt-to-PR workflow.">
+  <meta name="theme-color" content="#171717">
+  <meta property="og:title" content="Trek vs T3 Code">
+  <meta property="og:description" content="Real agent CLIs across every branch and repository, versus a single thread from prompt to merged PR.">
+  <meta property="og:url" content="https://gettrek.app/compare/t3-code/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://gettrek.app/assets/icon-256.png">
+  <link rel="canonical" href="https://gettrek.app/compare/t3-code/">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.77-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.4-3.67ZM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27Z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m6 3.5 4.5 4.5L6 12.5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5V16H4V6.5ZM2 16h20l-1 2.5H3L2 16Z"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="4" width="17" height="7" rx="1.5"/><rect x="3.5" y="13" width="17" height="7" rx="1.5"/></g><circle cx="7.5" cy="7.5" r="1" fill="currentColor"/><circle cx="7.5" cy="16.5" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.46-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.85.09-.66.35-1.12.64-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.04 1.03-2.76-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.64 1.03 2.76 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.24 10.24 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/></g><path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M11 18h2"/></symbol>
+</svg>
+
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="Trek home">
+      <img src="/assets/icon-256.png" alt="" width="28" height="28">
+      Trek
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/#worktrees">Trails</a>
+      <a href="/#server">Camp</a>
+      <a href="/#agents">Guides</a>
+      <a href="/#orchestrate">Expeditions</a>
+    </nav>
+    <a class="nav-icon" href="https://github.com/ghoofman/trek" target="_blank" rel="noopener" aria-label="Trek on GitHub" title="GitHub">
+      <svg aria-hidden="true"><use href="#i-github"/></svg>
+    </a>
+    <a class="btn btn-primary btn-sm nav-cta" data-download href="/#download">
+      <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero cmp-hero">
+    <div class="wrap">
+      <p class="eyebrow">Compare</p>
+      <h1><span class="accent">Trek</span> vs T3 Code</h1>
+      <p class="lead">
+        Both let you bring your own coding agents and run them on a machine you connect to.
+        They're built for different journeys. T3 Code takes a single thread from prompt to
+        merged pull request. Trek coordinates a whole expedition of real agent CLIs across
+        branches and repositories, local models included.
+      </p>
+      <p class="cmp-checked">
+        Checked against T3 Code's <a href="https://github.com/pingdotgg/t3code" target="_blank" rel="noopener">README</a>
+        and <a href="https://github.com/pingdotgg/t3code/tree/main/docs/user" target="_blank" rel="noopener">user docs</a>
+        in November 2026. Spot something out of date?
+        <a href="https://github.com/ghoofman/trek/issues" target="_blank" rel="noopener">Open an issue</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section cmp-fit">
+    <div class="wrap fit-grid">
+      <div class="fit-card trek reveal">
+        <h2><img src="/assets/favicon.png" alt="" width="22" height="22">Choose Trek if you want</h2>
+        <ul class="checks">
+          <li>The real <code>claude</code>, <code>codex</code>, <code>gemini</code> and <code>grok</code> CLIs, with every slash command, skill, plugin and hook</li>
+          <li>Local models through Ollama or LM Studio</li>
+          <li>One agent leading the others from a built-in panel</li>
+          <li>Projects that span several repositories</li>
+          <li>Workflow tags, Linear tickets and notes on every branch</li>
+          <li>A server you run yourself, with no account, relay or telemetry</li>
+        </ul>
+      </div>
+      <div class="fit-card reveal">
+        <h2>Choose T3 Code if you want</h2>
+        <ul class="checks plain">
+          <li>A guided path from prompt to merged PR, with diffs and generated commit messages and PR descriptions</li>
+          <li>PR watching that wakes the agent on failed checks, reviews or conflicts</li>
+          <li>GitLab, Bitbucket, Gitea, Forgejo or Azure DevOps</li>
+          <li>iOS, Android and web clients today</li>
+          <li>A wider list of agents, including Cursor, OpenCode and Pi</li>
+          <li>A desktop app on Windows and Linux, installed with brew, winget, AUR or Nix</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="table">
+    <div class="wrap">
+      <h2 class="cmp-h2 reveal">Side by side</h2>
+      <div class="cmp-scroll reveal">
+        <table class="cmp-table">
+          <thead>
+            <tr><th scope="col"></th><th scope="col"><img src="/assets/favicon.png" alt="" width="18" height="18">Trek</th><th scope="col">T3 Code</th></tr>
+          </thead>
+          <tbody>
+            <tr class="grp"><th colspan="3" scope="colgroup">Agents</th></tr>
+            <tr><th scope="row">How agents run</th>
+              <td><span class="mk yes"></span>The real CLI in a terminal (PTY)</td>
+              <td><span class="mk part"></span>Claude through Anthropic's Agent SDK</td></tr>
+            <tr><th scope="row">Claude's 5-hour limit</th>
+              <td><span class="mk yes"></span>Used as it is by Claude Code in your terminal</td>
+              <td><span class="mk part"></span>Its FAQ: Agent SDK use "will drain your 5h limits faster than using Claude Code directly" <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/faq.md" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Agents</th>
+              <td><span class="mk yes"></span>Claude Code, Codex, Gemini CLI, Grok, local models</td>
+              <td><span class="mk yes"></span>Claude, Codex, Cursor, Grok Build, OpenCode, Pi, Antigravity and more <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/install.md" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Local models</th>
+              <td><span class="mk yes"></span>Ollama or LM Studio, through Claude Code</td>
+              <td><span class="mk no"></span>Not supported, per its FAQ <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/faq.md" target="_blank" rel="noopener">source</a></td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Coordination</th></tr>
+            <tr><th scope="row">One agent driving others</th>
+              <td><span class="mk yes"></span>Built-in Global panel with trek-dev MCP tools: create worktrees, start sessions, send and queue prompts, read terminals, wait, ask you to decide</td>
+              <td><span class="mk yes"></span>Outside agents can start, message, wait on and stop threads through its CLI and MCP <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/outside-agents.md" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Several repositories in one project</th>
+              <td><span class="mk yes"></span>Yes</td>
+              <td><span class="mk nd"></span>Not documented</td></tr>
+            <tr><th scope="row">Dev stack per worktree</th>
+              <td><span class="mk yes"></span>Yes, on your Mac</td>
+              <td><span class="mk part"></span>Project scripts with a preview URL</td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Tracking work</th></tr>
+            <tr><th scope="row">Workflow tags on branches</th>
+              <td><span class="mk yes"></span>In Progress, In Review, Ready to Deploy and more, with a sidebar filter</td>
+              <td><span class="mk nd"></span>Not documented</td></tr>
+            <tr><th scope="row">Issue tracker</th>
+              <td><span class="mk yes"></span>Linear issue status and title on each branch</td>
+              <td><span class="mk nd"></span>Not documented</td></tr>
+            <tr><th scope="row">Branch notes</th>
+              <td><span class="mk yes"></span>Kept with the branch, even after its worktree is deleted</td>
+              <td><span class="mk nd"></span>Not documented</td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Git and pull requests</th></tr>
+            <tr><th scope="row">Diffs</th>
+              <td><span class="mk part"></span>A Changes view of each worktree</td>
+              <td><span class="mk yes"></span>Diff pane per turn, branch or commit</td></tr>
+            <tr><th scope="row">Generated commit messages and PR descriptions</th>
+              <td><span class="mk no"></span>Not yet</td>
+              <td><span class="mk yes"></span>Yes <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/source-control.md" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">PR watching</th>
+              <td><span class="mk no"></span>Not yet</td>
+              <td><span class="mk yes"></span>Checks every two minutes; wakes the agent on failed checks, reviews and conflicts</td></tr>
+            <tr><th scope="row">Stacked PRs and line-comment reviews</th>
+              <td><span class="mk no"></span>Not yet</td>
+              <td><span class="mk yes"></span>Yes</td></tr>
+            <tr><th scope="row">Git hosts</th>
+              <td><span class="mk part"></span>GitHub (check out a PR as a worktree, link PRs to branches)</td>
+              <td><span class="mk yes"></span>GitHub, GitLab, Gitea, Forgejo, Bitbucket, Azure DevOps and more</td></tr>
+            <tr><th scope="row">Worktree cleanup</th>
+              <td><span class="mk part"></span>Manual</td>
+              <td><span class="mk yes"></span>Manual or automatic</td></tr>
+
+            <tr class="grp"><th colspan="3" scope="colgroup">Remote, platforms and privacy</th></tr>
+            <tr><th scope="row">Server</th>
+              <td><span class="mk yes"></span>trek-server on macOS, Windows or Linux</td>
+              <td><span class="mk yes"></span>macOS, Windows or Linux</td></tr>
+            <tr><th scope="row">Remote access</th>
+              <td><span class="mk yes"></span>Straight to your server over Tailscale, your LAN or <code>wss://</code>, one token per device</td>
+              <td><span class="mk yes"></span>T3 Connect over a Cloudflare tunnel ("free too, for now", machine limits by plan), or LAN and Tailscale pairing <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/remote-access.md" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Telemetry</th>
+              <td><span class="mk yes"></span>None</td>
+              <td><span class="mk part"></span>On unless you set <code>T3CODE_TELEMETRY_ENABLED=false</code> <a class="src" href="https://github.com/pingdotgg/t3code/blob/main/docs/user/telemetry.md" target="_blank" rel="noopener">source</a></td></tr>
+            <tr><th scope="row">Mobile and web</th>
+              <td><span class="mk part"></span>iOS and Android coming soon</td>
+              <td><span class="mk yes"></span>iOS, Android and app.t3.codes</td></tr>
+            <tr><th scope="row">Desktop app</th>
+              <td><span class="mk part"></span>macOS (Apple Silicon)</td>
+              <td><span class="mk yes"></span>macOS, Windows and Linux; brew, winget, AUR, Nix, <code>npx t3</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cmp-legend">
+        <span><span class="mk yes"></span>Yes</span>
+        <span><span class="mk part"></span>Partly, or with a catch</span>
+        <span><span class="mk no"></span>No</span>
+        <span><span class="mk nd"></span>Not in its docs</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap cmp-points">
+      <div class="reveal">
+        <p class="eyebrow">Real CLIs</p>
+        <h3>The real guide, in a real terminal.</h3>
+        <p>
+          Trek starts <code>claude</code>, <code>codex</code>, <code>gemini</code> and <code>grok</code>
+          in a real terminal, the same way you would. Slash commands, skills, plugins, hooks and
+          permission prompts behave natively, and Claude Code uses your subscription exactly as it
+          does in your own terminal. T3 Code drives Claude through the Agent SDK, which its own
+          FAQ says drains the 5-hour limit faster.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Local models</p>
+        <h3>Bring a guide who works offline.</h3>
+        <p>
+          Some trails are private, or just don't need a frontier model. Trek runs Claude Code
+          against Ollama or LM Studio, so a local model can take a session like any other guide.
+          T3 Code's FAQ says it doesn't support local models.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Expeditions</p>
+        <h3>A whole expedition, not one thread.</h3>
+        <p>
+          A Trek project can hold several repositories. Every branch carries a workflow tag, its
+          Linear issue and notes that outlive the worktree, and the Global panel's agent can
+          spread work across worktrees, queue each session's next leg and wait for them all.
+          T3 Code is built around threads that each run from prompt to pull request.
+        </p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Camp</p>
+        <h3>A camp that answers to you.</h3>
+        <p>
+          trek-server runs on your own machine and talks straight to your devices: no account,
+          no relay and no telemetry. T3 Code offers LAN and Tailscale pairing too, and its
+          easiest remote path, T3 Connect, runs through a Cloudflare tunnel with machine limits
+          tied to your T3 Chat plan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="ahead reveal">
+        <h3>Where T3 Code is ahead today</h3>
+        <p>
+          T3 Code is an excellent, popular open-source (MIT) project, and on some ground it's
+          further along. Its pull request workflow is deeper, with per-turn diffs, generated commit
+          messages and PR descriptions, stacked PRs and review with line comments, and its server
+          watches PRs and wakes the agent when checks fail or reviews arrive. It works with many
+          more git hosts and agents, its iOS, Android and web clients are out now, and it installs
+          through every major package manager. If that's the route you need, it's a great choice.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="closer">
+    <div class="wrap reveal">
+      <img class="mark" src="/assets/icon-256.png" alt="" width="72" height="72">
+      <h2>Where will yours lead?</h2>
+      <p>Run your real agents across every branch and repository, with a camp of your own.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" data-download href="/#download">
+          <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+        </a>
+        <a class="btn btn-ghost btn-lg" href="/">Explore Trek</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="/#top"><img src="/assets/icon-256.png" alt="" width="28" height="28">Trek</a>
+        <p class="foot-blurb">Every project is a journey. Trek gives every branch its own agent.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a data-download href="/#download">Download</a></li>
+          <li><a href="/#server">Camp (trek-server)</a></li>
+          <li><a href="/#mobile">iOS &amp; Android</a></li>
+          <li><a href="/#agents">Guides</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The route</h4>
+        <ul>
+          <li><a href="/#worktrees">Trailheads</a></li>
+          <li><a href="/#attention">Signals</a></li>
+          <li><a href="/#orchestrate">Expedition lead</a></li>
+          <li><a href="/#branches">Trail log</a></li>
+          <li><a href="/#mobile">From anywhere</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Compare</h4>
+        <ul>
+          <li><a href="/compare/t3-code/">Trek vs T3 Code</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="/#download">Install the app</a></li>
+          <li><a href="/#server">Pitch camp</a></li>
+          <li><a href="https://github.com/ghoofman/trek" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Trek</span>
+      <span>Made for the long way round.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/main.js"></script>
+</body>
+</html>
