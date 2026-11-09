@@ -4,3 +4,7 @@ README.md
 Dockerfile
 docker-compose.yml
 .dockerignore
+.env
+.gitignore
+waitlist
+node_modules

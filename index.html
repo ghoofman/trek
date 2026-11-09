@@ -492,6 +492,24 @@
           <li>A push notification when a guide needs you</li>
           <li>Answer, queue a prompt, or start a new session</li>
         </ul>
+        <form class="waitlist" id="waitlist" data-waitlist novalidate>
+          <p class="wl-title">Join the waitlist</p>
+          <fieldset class="wl-platforms">
+            <legend class="sr-only">Which phone do you use?</legend>
+            <label><input type="radio" name="platform" value="ios" checked><span>iOS</span></label>
+            <label><input type="radio" name="platform" value="android"><span>Android</span></label>
+            <label><input type="radio" name="platform" value="both"><span>Both</span></label>
+          </fieldset>
+          <div class="wl-row">
+            <label class="sr-only" for="wl-email">Email</label>
+            <input class="wl-input" id="wl-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+            <button class="btn btn-primary" type="submit">Notify me</button>
+          </div>
+          <div class="wl-hp" aria-hidden="true">
+            <label>Company <input type="text" name="company" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <p class="wl-note" data-waitlist-status role="status" aria-live="polite">One email when it ships. That's it.</p>
+        </form>
       </div>
       <div class="phone-wrap reveal">
         <div class="phone" role="img" aria-label="Trek on a phone: a list of trails with one agent asking whether to push a fix">

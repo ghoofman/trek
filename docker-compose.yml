@@ -10,6 +10,7 @@ services:
       - "127.0.0.1:${TREK_WEB_PORT:-8091}:80"
     networks:
       - proxy
+      - internal
     read_only: true
     tmpfs:
       - /var/cache/nginx
@@ -18,6 +19,52 @@ services:
     security_opt:
       - no-new-privileges:true
 
+  # POST /api/waitlist, proxied by nginx. Only reachable from the web container.
+  waitlist:
+    build: ./waitlist
+    image: trek-waitlist:latest
+    container_name: trek-waitlist
+    restart: unless-stopped
+    environment:
+      PGHOST: db
+      PGUSER: trek
+      PGDATABASE: trek
+      PGPASSWORD: ${WAITLIST_DB_PASSWORD:?set WAITLIST_DB_PASSWORD in .env}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+
+  db:
+    image: postgres:17-alpine
+    container_name: trek-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: trek
+      POSTGRES_DB: trek
+      POSTGRES_PASSWORD: ${WAITLIST_DB_PASSWORD:?set WAITLIST_DB_PASSWORD in .env}
+    volumes:
+      - trek-db:/var/lib/postgresql/data
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U trek -d trek"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    security_opt:
+      - no-new-privileges:true
+
 networks:
   proxy:
     external: true
+  # No route to the internet; web, waitlist and db talk to each other only.
+  internal:
+    internal: true
+
+volumes:
+  trek-db:

@@ -28,10 +28,40 @@ docker compose up -d --build            # http://127.0.0.1:8091
 TREK_WEB_PORT=3000 docker compose up -d # or another localhost port
 ```
 
+### Mobile waitlist
+
+The waitlist form on the homepage posts to `/api/waitlist`. nginx proxies that to
+the `waitlist` container (`waitlist/`, a small Node service), which stores the
+email and platform in the `db` container (Postgres 17, `trek-db` volume).
+
+- `waitlist` and `db` sit on an `internal` network with no internet access. Only
+  `web` joins `proxy`, so neither is reachable from outside.
+- nginx allows 5 sign-ups a minute per visitor (keyed on `CF-Connecting-IP`).
+  The service only accepts JSON, ignores honeypot submissions, and gives the same
+  response for an address that's already on the list.
+- The service creates the table on startup. Signing up again only changes the
+  platform.
+- If `waitlist` is down, the site still serves and the form asks people to retry.
+
+Compose needs a database password. On the server, once:
+
+```sh
+echo "WAITLIST_DB_PASSWORD=$(openssl rand -hex 24)" > .env
+```
+
+To read or export the list:
+
+```sh
+docker exec trek-db psql -U trek -d trek -c 'select email, platform, created_at from waitlist order by id'
+docker exec trek-db psql -U trek -d trek -c "\copy (select email, platform, created_at from waitlist order by id) to stdout csv header" > waitlist.csv
+```
+
+To close the waitlist, set `WAITLIST_URL` to `""` in `main.js`.
+
 ### Deploying to the server
 
 ```sh
-rsync -az --delete --exclude .git --exclude .DS_Store ./ digitalocean:~/trek-website/
+rsync -az --delete --exclude .git --exclude .DS_Store --exclude .env --exclude node_modules ./ digitalocean:~/trek-website/
 ssh digitalocean 'cd ~/trek-website && docker compose up -d --build'
 ```
 
