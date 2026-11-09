@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trek: every project is a journey</title>
+  <meta name="description" content="Every project is a journey, and no two look the same. Trek gives every branch its own agent (Claude Code, Codex, Gemini, Grok or a local model) so you can explore many paths at once.">
+  <meta name="theme-color" content="#171717">
+  <meta property="og:title" content="Trek: every project is a journey">
+  <meta property="og:description" content="Every branch its own trail, every trail its own agent.">
+  <meta property="og:url" content="https://gettrek.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://gettrek.app/assets/icon-256.png">
+  <link rel="canonical" href="https://gettrek.app/">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-apple" viewBox="0 0 24 24"><path fill="currentColor" d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.77-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.9 1.15 9.15.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.39-.92-2.4-3.67ZM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27Z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 16 16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="m6 3.5 4.5 4.5L6 12.5"/></symbol>
+  <symbol id="i-laptop" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4 6.5A1.5 1.5 0 0 1 5.5 5h13A1.5 1.5 0 0 1 20 6.5V16H4V6.5ZM2 16h20l-1 2.5H3L2 16Z"/></symbol>
+  <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="4" width="17" height="7" rx="1.5"/><rect x="3.5" y="13" width="17" height="7" rx="1.5"/></g><circle cx="7.5" cy="7.5" r="1" fill="currentColor"/><circle cx="7.5" cy="16.5" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6"><rect x="7" y="3" width="10" height="18" rx="2"/></g><path stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M11 18h2"/></symbol>
+</svg>
+
+<header class="site-header" id="top">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Trek home">
+      <img src="assets/icon-256.png" alt="" width="28" height="28">
+      Trek
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#worktrees">Trails</a>
+      <a href="#server">Camp</a>
+      <a href="#agents">Guides</a>
+      <a href="#orchestrate">Expeditions</a>
+    </nav>
+    <a class="btn btn-primary btn-sm nav-cta" data-download href="#download">
+      <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <a class="pill" href="#server">
+        <span class="pill-tag">New</span>
+        Your agents keep walking after you quit
+        <svg aria-hidden="true"><use href="#i-chev"/></svg>
+      </a>
+
+      <h1>Every project is<br>its own <span class="accent">trek</span>.</h1>
+      <p class="lead">
+        No two journeys look the same. Trek gives every branch its own agent, so you can
+        explore many paths at once and follow the one that leads somewhere.
+      </p>
+
+      <div class="cta-row" id="download">
+        <div class="cta-col">
+          <a class="btn btn-primary btn-lg" data-download href="#download">
+            <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+          </a>
+          <span class="cta-note">Apple Silicon · <a href="#mobile">iOS &amp; Android soon</a></span>
+        </div>
+        <div class="cta-col">
+          <div class="cmd">
+            <span><span class="prompt">$</span> trek-server add .</span>
+            <button class="copy-btn" type="button" data-copy="trek-server add .">Copy</button>
+          </div>
+          <span class="cta-note">Pitch <a href="#server">camp</a> on Mac, Windows or Linux</span>
+        </div>
+      </div>
+
+      <div class="works-with">
+        <span class="label">Travel with</span>
+        <span class="agent-chip" style="--c:#d97757"><i></i>Claude Code</span>
+        <span class="agent-chip" style="--c:#e8e8e8"><i></i>Codex</span>
+        <span class="agent-chip" style="--c:#6b9cf5"><i></i>Gemini</span>
+        <span class="agent-chip" style="--c:#b0b0b0"><i></i>Grok</span>
+        <span class="agent-chip" style="--c:#3ec48a"><i></i>Ollama</span>
+        <span class="agent-chip" style="--c:#a58bf0"><i></i>LM Studio</span>
+      </div>
+
+      <!-- App mockup -->
+      <div class="shot">
+        <div class="window" role="img" aria-label="The Trek app: a sidebar of worktrees with live agent status, and a Claude Code session waiting for an answer">
+          <div class="win-bar">
+            <div class="lights"><i></i><i></i><i></i></div>
+            <div class="win-title"><b>acme</b> · 2 repositories</div>
+            <div class="win-server"><span class="dot done" style="width:7px;height:7px"></span>Local</div>
+          </div>
+          <div class="app">
+            <aside class="side">
+              <div class="repo-head"><span>acme-web</span><span>+</span></div>
+              <div class="wt">
+                <span class="dot"></span>
+                <span class="wt-name">main</span>
+                <span class="wt-git">✓</span>
+                <div class="wt-meta"><span class="tag primary">PRIMARY</span></div>
+              </div>
+              <div class="wt">
+                <span class="dot working"></span>
+                <span class="wt-name">feat/checkout-v2</span>
+                <span class="wt-git"><span class="up">↑2</span> ●3</span>
+                <div class="wt-meta"><span class="tag progress">In Progress</span><span class="chip">TOW-412</span></div>
+              </div>
+              <div class="wt active">
+                <span class="dot needs"></span>
+                <span class="wt-name">fix/null-cart</span>
+                <span class="wt-git"><span class="up">↑1</span></span>
+                <div class="wt-meta"><span class="tag review">In Review</span><span class="chip">TOW-418</span><span class="chip">#218</span></div>
+              </div>
+              <div class="wt">
+                <span class="dot done"></span>
+                <span class="wt-name">chore/node-22</span>
+                <span class="wt-git">✓</span>
+                <div class="wt-meta"><span class="tag deploy">Ready to Deploy</span></div>
+              </div>
+              <div class="wt">
+                <span class="dot unloaded"></span>
+                <span class="wt-name">spike/search</span>
+                <span class="wt-git">▸2</span>
+              </div>
+
+              <div class="repo-head" style="margin-top:8px"><span>acme-api</span><span>+</span></div>
+              <div class="wt">
+                <span class="dot"></span>
+                <span class="wt-name">main</span>
+                <span class="wt-git">✓</span>
+                <div class="wt-meta"><span class="tag primary">PRIMARY</span></div>
+              </div>
+              <div class="wt">
+                <span class="dot working"></span>
+                <span class="wt-name">feat/promo-endpoint</span>
+                <span class="wt-git">●5</span>
+                <div class="wt-meta"><span class="tag progress">In Progress</span><span class="chip">TOW-415</span></div>
+              </div>
+
+              <div class="side-foot"><span>Tag: All</span><span>7 worktrees</span></div>
+            </aside>
+
+            <div class="main">
+              <div class="detail">
+                <div class="detail-info">
+                  <div class="detail-branch">fix/null-cart <span class="tag review">In Review</span></div>
+                  <div class="detail-path">~/repos/acme-web-fix-null-cart</div>
+                  <div class="detail-links">
+                    <span class="link-chip"><span class="st"></span><b>TOW-418</b> Cart crashes with an active promo</span>
+                    <span class="link-chip"><b>PR #218</b> Guard applyPromo against empty carts</span>
+                  </div>
+                </div>
+                <div class="detail-actions">
+                  <span class="mini-btn">Open in VS Code</span>
+                  <span class="mini-btn">⋯</span>
+                </div>
+              </div>
+
+              <div class="tabs">
+                <div class="tab active"><span class="badge q">?</span>Claude · fix</div>
+                <div class="tab"><span class="spinner"></span>Codex · tests</div>
+                <div class="tab"><span class="badge ok">✓</span>Claude · review</div>
+                <div class="tab-add">+</div>
+              </div>
+
+              <div class="term">
+                <div class="u">Reproduce the null cart crash from TOW-418 and fix it</div>
+                <div class="tool">Read <b>src/cart/applyPromo.ts</b></div>
+                <div class="tool">Bash <b>npm test -- promo</b></div>
+                <div class="out">✕ applies promo to empty cart <span class="del">TypeError: cart is null</span></div>
+                <div class="tool">Update <b>src/cart/applyPromo.ts</b> <span class="add">+4</span> <span class="del">-1</span></div>
+                <div class="tool">Bash <b>npm test -- promo</b></div>
+                <div class="out"><span class="add">✓ 14 passed</span></div>
+                <div class="msg">Fixed: an empty cart now skips the promo instead of crashing.</div>
+                <div class="choice">
+                  <div class="q">Push fix/null-cart and update PR #218?</div>
+                  <div class="sel">❯ 1. Yes</div>
+                  <div class="opt">&nbsp;&nbsp;2. No, keep going</div>
+                </div>
+                <div style="margin-top:10px"><span class="caret"></span></div>
+              </div>
+
+              <div class="status">
+                <span class="s"><span class="dot working"></span>2 working</span>
+                <span class="s"><span class="dot needs"></span>1 needs you</span>
+                <span class="s hide-sm"><span class="dot done"></span>2 done</span>
+                <span class="grow"></span>
+                <span class="hide-sm">Global · Claude</span>
+                <span class="kbd">⌘J</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="trail">
+  <!-- Worktrees -->
+  <section class="section" id="worktrees">
+    <div class="wrap feature">
+      <span class="waypoint" aria-hidden="true">01</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">01</span>Trailheads</p>
+        <h2>Many trails. Walked at once.</h2>
+        <p>
+          Every idea gets its own path. Each branch is a git worktree with its own agents
+          in a real terminal, all on one map. Break a new trail with <code>+</code>, pick one
+          up from a pull request, and let five agents explore without crossing paths.
+        </p>
+        <ul class="checks">
+          <li>Where every trail stands: ahead, behind, uncommitted</li>
+          <li>Several repositories in one expedition</li>
+          <li>Rest a trail, and pick its sessions back up later</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="card-head">
+          <span class="left"><img src="assets/favicon.png" alt="">acme-web</span>
+          <span class="muted">4 worktrees · 6 sessions</span>
+        </div>
+        <div class="grid-wt">
+          <div class="pane">
+            <div class="pane-head"><span class="dot working"></span>feat/checkout-v2<span class="agent">Claude</span></div>
+            <div class="l">⏺ Update CheckoutForm.tsx</div>
+            <div class="l">⏺ Update useCheckout.ts</div>
+            <div class="l hi">⏺ Bash npm run typecheck</div>
+            <div class="l">&nbsp;&nbsp;running…</div>
+          </div>
+          <div class="pane">
+            <div class="pane-head"><span class="dot needs"></span>fix/null-cart<span class="agent">Claude</span></div>
+            <div class="l"><span class="ok">✓ 14 passed</span></div>
+            <div class="l hi">Push and update PR #218?</div>
+            <div class="l"><span class="warn">❯ 1. Yes</span></div>
+            <div class="l">&nbsp;&nbsp;2. No</div>
+          </div>
+          <div class="pane">
+            <div class="pane-head"><span class="dot working"></span>feat/promo-endpoint<span class="agent">Codex</span></div>
+            <div class="l">• Added POST /promos/:code</div>
+            <div class="l">• Wrote 6 handler tests</div>
+            <div class="l hi">• Running go test ./promo/…</div>
+          </div>
+          <div class="pane">
+            <div class="pane-head"><span class="dot done"></span>chore/node-22<span class="agent">Gemini</span></div>
+            <div class="l">✦ Bumped engines to node 22</div>
+            <div class="l">✦ Updated CI matrix</div>
+            <div class="l hi"><span class="ok">✦ All checks pass.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Attention -->
+  <section class="section" id="attention">
+    <div class="wrap feature flip">
+      <span class="waypoint" aria-hidden="true">02</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">02</span>Signals</p>
+        <h2>Know who's waiting at the fork.</h2>
+        <p>
+          Agents stop when the path splits. Trek watches every session: a tab pulses orange
+          when an agent needs a decision, turns green when it reaches the end, and a
+          notification brings you straight there, wherever you wandered off to.
+        </p>
+        <ul class="checks">
+          <li>A status dot on every trail, a badge on every tab</li>
+          <li>One bell lists everyone who needs you</li>
+          <li>Mark a trail complete to silence it</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><span>Notifications</span><span class="muted">acme</span></div>
+        <div class="notif hl">
+          <span class="ico q">?</span>
+          <div class="txt"><div class="t1">fix/null-cart</div><div class="t2">Claude is waiting on you</div></div>
+          <span class="when">now</span>
+        </div>
+        <div class="notif">
+          <span class="ico ok">✓</span>
+          <div class="txt"><div class="t1">chore/node-22</div><div class="t2">Gemini looks done</div></div>
+          <span class="when">4m</span>
+        </div>
+        <div class="notif">
+          <span class="ico spin"><span class="spinner"></span></span>
+          <div class="txt"><div class="t1">feat/checkout-v2</div><div class="t2">Claude is working</div></div>
+          <span class="when">12m</span>
+        </div>
+        <div class="notif">
+          <span class="ico hollow">✓</span>
+          <div class="txt"><div class="t1">docs/readme</div><div class="t2">Marked complete</div></div>
+          <span class="when">1h</span>
+        </div>
+        <div class="notif">
+          <span class="ico x">✕</span>
+          <div class="txt"><div class="t1">spike/search</div><div class="t2">Process exited · Restart resumes it</div></div>
+          <span class="when">2h</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Server -->
+  <section class="section" id="server">
+    <div class="wrap feature">
+      <span class="waypoint" aria-hidden="true">03</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">03</span>Camp</p>
+        <h2>The journey continues without you.</h2>
+        <p>
+          Every expedition needs a camp. Trek pitches one on your Mac, and
+          <code>trek-server</code> sets one up on any Mac, Windows or Linux machine. Close the
+          lid and walk away; your agents keep going, and Trek picks up right where you left
+          them. Every window and every phone on a project sees the same sessions, live.
+        </p>
+        <ul class="checks">
+          <li>One token per traveller's device, revoke any time</li>
+          <li>Reach camp over Tailscale, your LAN or <code>wss://</code></li>
+          <li>Runs on macOS, Windows and Linux, as a background service</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><span>devbox</span><span class="muted">macOS · Windows · Linux</span></div>
+        <div class="devices">
+          <div class="device"><span class="box"><svg aria-hidden="true"><use href="#i-laptop"/></svg></span>laptop</div>
+          <span class="wire"></span>
+          <div class="device"><span class="box srv"><svg aria-hidden="true"><use href="#i-server"/></svg></span>trek-server</div>
+          <span class="wire"></span>
+          <div class="device"><span class="box mob"><svg aria-hidden="true"><use href="#i-phone"/></svg></span>phone</div>
+        </div>
+        <div class="shell"><span class="c"># register the repos agents can work on</span>
+<span class="p">$</span> trek-server add ~/repos/acme-web
+<span class="p">$</span> trek-server add ~/repos/acme-api
+<span class="c"># one token per device</span>
+<span class="p">$</span> trek-server token add laptop
+<span class="p">$</span> trek-server token add phone
+<span class="c"># pitch camp</span>
+<span class="p">$</span> trek-server</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agents -->
+  <section class="section" id="agents">
+    <div class="wrap feature flip">
+      <span class="waypoint" aria-hidden="true">04</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">04</span>Guides</p>
+        <h2>Choose your guide for the terrain.</h2>
+        <p>
+          Different ground calls for different guides. Each session runs a real agent CLI:
+          Claude Code, Codex, Gemini, Grok, or a local model through Ollama or LM Studio.
+          Pick a default for the project, save session types with their own guide and
+          briefing, or choose one for a single leg.
+        </p>
+        <ul class="checks">
+          <li>A session always resumes with the guide it started with</li>
+          <li>Restart an exited session and keep the conversation</li>
+          <li>Your CLIs, your logins, your config</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><span class="left"><img src="assets/favicon.png" alt="">New session</span><span class="muted">feat/checkout-v2</span></div>
+        <div class="agent-row">
+          <span class="agent-ico" style="--c:#d97757">C</span>
+          <div class="txt"><div class="n">Claude Code</div><div class="d">claude · acceptEdits</div></div>
+          <span class="state ok">default</span>
+        </div>
+        <div class="agent-row">
+          <span class="agent-ico">Cx</span>
+          <div class="txt"><div class="n">Codex</div><div class="d">codex</div></div>
+        </div>
+        <div class="agent-row">
+          <span class="agent-ico" style="--c:#6b9cf5">G</span>
+          <div class="txt"><div class="n">Gemini</div><div class="d">gemini</div></div>
+        </div>
+        <div class="agent-row">
+          <span class="agent-ico" style="--c:#b0b0b0">X</span>
+          <div class="txt"><div class="n">Grok</div><div class="d">grok</div></div>
+        </div>
+        <div class="agent-row">
+          <span class="agent-ico" style="--c:#3ec48a">L</span>
+          <div class="txt"><div class="n">Local</div><div class="d">ollama · http://127.0.0.1:11434</div></div>
+          <span class="state">on-device</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Orchestration -->
+  <section class="section" id="orchestrate">
+    <div class="wrap feature">
+      <span class="waypoint" aria-hidden="true">05</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">05</span>Expedition lead</p>
+        <h2>One guide to lead the expedition.</h2>
+        <p>
+          The Global panel (<code>⌘J</code>) is a project-wide agent with Trek's own MCP tools.
+          It breaks new trails, sends guides down them, reads their progress and waits for
+          them to report back, so one agent plans the route and checks every leg.
+        </p>
+        <ul class="checks">
+          <li>Queue the next leg for a session to start when it's ready</li>
+          <li>Tag, note and link a trail from a prompt</li>
+          <li>Tools stay on <code>127.0.0.1</code>, scoped to the project</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><span>Global · Claude</span><span class="muted">trek-dev MCP</span></div>
+        <div class="mcp">
+          <div class="u">Fix TOW-420 and TOW-421 in their own worktrees, then tell me when both pass.</div>
+          <div class="call"><b>create_worktree</b> fix/tow-420</div>
+          <div class="call"><b>create_worktree</b> fix/tow-421</div>
+          <div class="call"><b>start_session</b> fix/tow-420 · "Fix TOW-420…"</div>
+          <div class="call"><b>start_session</b> fix/tow-421 · "Fix TOW-421…"</div>
+          <div class="call"><b>wait_for_sessions</b> 2 sessions · until all</div>
+          <div class="res">both done after 6m 12s</div>
+          <div class="call"><b>read_terminal</b> fix/tow-420, fix/tow-421</div>
+          <div class="call"><b>set_worktree_tag</b> fix/tow-420, fix/tow-421 · In Review</div>
+          <div class="say">Both fixes are in and their tests pass. I tagged the branches <span class="tag review">In Review</span>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Branch data -->
+  <section class="section" id="branches">
+    <div class="wrap feature flip">
+      <span class="waypoint" aria-hidden="true">06</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">06</span>Trail log</p>
+        <h2>Every trail keeps its log.</h2>
+        <p>
+          Mark how far each trail has come: In Progress, In Review, Ready to Deploy. Pin its
+          Linear issue and pull request, and leave notes for whoever walks it next. The log
+          belongs to the branch, so it's still there when you come back to it.
+        </p>
+        <ul class="checks">
+          <li>Linear issue status and title on the chip</li>
+          <li>Filter the map by how far along each trail is</li>
+          <li>All Notes gathers every trail's log in one place</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <div class="card-head"><span class="mono" style="font-weight:500">feat/checkout-v2</span><span class="tag progress">In Progress</span></div>
+        <div class="bd">
+          <div class="bd-row"><span class="k">Ticket</span><span class="link-chip"><span class="st" style="border-color:var(--accent)"></span><b>TOW-412</b> One-page checkout</span></div>
+          <div class="bd-row"><span class="k">PR</span><span class="link-chip"><b>#221</b> Checkout v2 (draft)</span></div>
+          <div class="bd-row" style="align-items:flex-start"><span class="k">Tag</span>
+            <div class="menu">
+              <div class="mi on"><i style="--c:var(--accent)"></i>In Progress</div>
+              <div class="mi"><i style="--c:var(--violet)"></i>In Review</div>
+              <div class="mi"><i style="--c:var(--attention)"></i>Changes Needed</div>
+              <div class="mi"><i style="--c:#c9a227"></i>In Testing</div>
+              <div class="mi"><i style="--c:var(--ok)"></i>Ready to Deploy</div>
+            </div>
+          </div>
+          <div class="bd-row" style="align-items:flex-start"><span class="k">Note</span><div class="note">Waiting on design for the promo field. Keep the old flow behind <span class="mono">CHECKOUT_V2</span>.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile -->
+  <section class="section" id="mobile">
+    <div class="wrap feature">
+      <span class="waypoint" aria-hidden="true">07</span>
+      <div class="feature-copy reveal">
+        <p class="eyebrow"><span class="wp-num">07</span>From anywhere <span class="soon">Coming soon</span></p>
+        <h2>Check in from the trail.</h2>
+        <p>
+          Trek for iOS and Android connects to your camp, so the journey comes with you. See
+          where every agent is, answer the one waiting at the fork, and send it on its way
+          from the coffee line, the train, or the actual trail.
+        </p>
+        <ul class="checks">
+          <li>The same live sessions as your desktop</li>
+          <li>A push notification when a guide needs you</li>
+          <li>Answer, queue a prompt, or start a new session</li>
+        </ul>
+      </div>
+      <div class="phone-wrap reveal">
+        <div class="phone" role="img" aria-label="Trek on a phone: a list of trails with one agent asking whether to push a fix">
+          <div class="phone-notch"></div>
+          <div class="ph-top"><span>9:41</span><span class="ph-title">acme</span><span class="dot done" style="width:7px;height:7px"></span></div>
+          <div class="ph-h"><span>acme</span><span class="ph-s">3 trails · 1 waiting</span></div>
+          <div class="ph-list">
+            <div class="ph-row"><span class="dot working"></span><div><div class="ph-b">feat/checkout-v2</div><div class="ph-s">Claude · working</div></div></div>
+            <div class="ph-row on"><span class="dot needs"></span><div><div class="ph-b">fix/null-cart</div><div class="ph-s">Claude · waiting on you</div></div></div>
+            <div class="ph-row"><span class="dot done"></span><div><div class="ph-b">chore/node-22</div><div class="ph-s">Gemini · done</div></div></div>
+          </div>
+          <div class="ph-card">
+            <div class="ph-q">Push fix/null-cart and update PR #218?</div>
+            <div class="ph-out"><span class="add">✓ 14 passed</span> · applyPromo.ts <span class="add">+4</span> <span class="del">-1</span></div>
+            <div class="ph-btns"><span class="ph-btn pri">Yes, push it</span><span class="ph-btn">Keep going</span></div>
+          </div>
+          <div class="ph-input">Send a prompt to fix/null-cart…</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  </div>
+
+  <section class="closer">
+    <div class="wrap reveal">
+      <img class="mark" src="assets/icon-256.png" alt="" width="72" height="72">
+      <h2>Where will yours lead?</h2>
+      <p>Every project takes its own route. Trek runs on your Mac with a camp built in, so pack light and start walking.</p>
+      <p class="closer-note">Camp runs on macOS, Windows and Linux. iOS and Android apps are on the way.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" data-download href="#download">
+          <svg aria-hidden="true"><use href="#i-apple"/></svg>Download for macOS
+        </a>
+        <a class="btn btn-ghost btn-lg" href="#server">Set up camp</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="#top"><img src="assets/icon-256.png" alt="" width="28" height="28">Trek</a>
+        <p class="foot-blurb">Every project is a journey. Trek gives every branch its own agent.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul>
+          <li><a data-download href="#download">Download</a></li>
+          <li><a href="#server">Camp (trek-server)</a></li>
+          <li><a href="#mobile">iOS &amp; Android</a></li>
+          <li><a href="#agents">Guides</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The route</h4>
+        <ul>
+          <li><a href="#worktrees">Trailheads</a></li>
+          <li><a href="#attention">Signals</a></li>
+          <li><a href="#orchestrate">Expedition lead</a></li>
+          <li><a href="#branches">Trail log</a></li>
+          <li><a href="#mobile">From anywhere</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get started</h4>
+        <ul>
+          <li><a href="#download">Install the app</a></li>
+          <li><a href="#server">Pitch camp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Trek</span>
+      <span>Made for the long way round.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

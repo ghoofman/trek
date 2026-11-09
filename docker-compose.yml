@@ -1,0 +1,23 @@
+services:
+  web:
+    build: .
+    image: trek-website:latest
+    container_name: trek-website
+    restart: unless-stopped
+    # Localhost-only, for checks on the server. Public traffic for https://gettrek.app
+    # arrives through cloudflared on the "proxy" network at http://trek-website:80.
+    ports:
+      - "127.0.0.1:${TREK_WEB_PORT:-8091}:80"
+    networks:
+      - proxy
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx
+      - /var/run
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  proxy:
+    external: true
