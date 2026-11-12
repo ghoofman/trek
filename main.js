@@ -1,10 +1,27 @@
-// Set this to the published .dmg once there is one; every "Download" link uses it.
-const DOWNLOAD_URL = "";
+// Every "Download" link points at the latest GitHub release. The page link works
+// on its own; once the GitHub API answers we swap in the .dmg itself so the click
+// downloads straight away.
+const RELEASES_REPO = "gettrekapp/trek";
+const RELEASES_URL = `https://github.com/${RELEASES_REPO}/releases/latest`;
 
-if (DOWNLOAD_URL) {
-  document.querySelectorAll("[data-download]").forEach((a) => {
-    a.href = DOWNLOAD_URL;
-  });
+const downloadLinks = document.querySelectorAll("[data-download]");
+downloadLinks.forEach((a) => {
+  a.href = RELEASES_URL;
+});
+
+if (downloadLinks.length) {
+  fetch(`https://api.github.com/repos/${RELEASES_REPO}/releases/latest`, {
+    headers: { Accept: "application/vnd.github+json" },
+  })
+    .then((res) => (res.ok ? res.json() : null))
+    .then((release) => {
+      const dmg = release?.assets?.find((a) => a.name.endsWith(".dmg"));
+      if (!dmg) return;
+      downloadLinks.forEach((a) => {
+        a.href = dmg.browser_download_url;
+      });
+    })
+    .catch(() => {});
 }
 
 // Mobile waitlist. nginx proxies this to the waitlist container (waitlist/),
