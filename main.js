@@ -1,12 +1,44 @@
-// Every "Download" link points at the latest GitHub release. The page link works
-// on its own; once the GitHub API answers we swap in the .dmg itself so the click
+// Download links point at the latest GitHub release. The page link works on its
+// own; once the GitHub API answers we swap in the installer itself so the click
 // downloads straight away.
+//   data-download             the visitor's own OS (label and icon follow it)
+//   data-download="windows"   a specific OS: mac, windows or linux
+// Elements with data-alt="<os>" are hidden for the visitor's own OS, so the
+// "Also for ..." note only lists the others.
 const RELEASES_REPO = "gettrekapp/trek";
 const RELEASES_URL = `https://github.com/${RELEASES_REPO}/releases/latest`;
 
-const downloadLinks = document.querySelectorAll("[data-download]");
-downloadLinks.forEach((a) => {
+const ua = navigator.userAgent.toLowerCase();
+const uaPlatform = (navigator.userAgentData?.platform || navigator.platform || "").toLowerCase();
+const linuxArch = /aarch64|arm64|armv8/.test(ua + uaPlatform) ? "arm64" : "x64";
+const visitorOS = /android|iphone|ipad|ipod/.test(ua)
+  ? "mac"
+  : uaPlatform.includes("win") || ua.includes("windows")
+    ? "windows"
+    : uaPlatform.includes("linux") || ua.includes("linux") || ua.includes("x11")
+      ? "linux"
+      : "mac";
+
+const PLATFORMS = {
+  mac: { label: "macOS", icon: "#i-apple", match: (n) => n.endsWith(".dmg") },
+  windows: { label: "Windows", icon: "#i-windows", match: (n) => /-win-x64\.exe$/.test(n) },
+  linux: { label: "Linux", icon: "#i-linux", match: (n) => n.endsWith(`-linux-${linuxArch}.deb`) },
+};
+
+const downloadLinks = [...document.querySelectorAll("[data-download]")].map((a) => {
+  const os = a.dataset.download || visitorOS;
   a.href = RELEASES_URL;
+  const use = a.querySelector("svg use");
+  if (use && !a.dataset.download) {
+    use.setAttribute("href", PLATFORMS[os].icon);
+    const text = [...a.childNodes].reverse().find((n) => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+    if (text) text.textContent = `Download for ${PLATFORMS[os].label}\n    `;
+  }
+  return { a, os };
+});
+
+document.querySelectorAll("[data-alt]").forEach((el) => {
+  el.hidden = el.dataset.alt === visitorOS;
 });
 
 if (downloadLinks.length) {
@@ -15,10 +47,10 @@ if (downloadLinks.length) {
   })
     .then((res) => (res.ok ? res.json() : null))
     .then((release) => {
-      const dmg = release?.assets?.find((a) => a.name.endsWith(".dmg"));
-      if (!dmg) return;
-      downloadLinks.forEach((a) => {
-        a.href = dmg.browser_download_url;
+      const assets = release?.assets || [];
+      downloadLinks.forEach(({ a, os }) => {
+        const asset = assets.find((x) => PLATFORMS[os].match(x.name));
+        if (asset) a.href = asset.browser_download_url;
       });
     })
     .catch(() => {});

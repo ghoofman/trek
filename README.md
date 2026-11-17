@@ -9,8 +9,11 @@ python3 -m http.server 4321   # then open http://localhost:4321
 - `index.html`: the page. The app screenshots are HTML/CSS mockups, not images.
 - `styles.css`: design tokens are on `:root` at the top.
 - `main.js`: copy buttons, scroll reveal, and the download links. Every
-  "Download for macOS" link points at the latest release of `gettrekapp/trek`
-  and swaps in its `.dmg` from the GitHub API.
+  `data-download` link points at the latest release of `gettrekapp/trek` and
+  swaps in the installer from the GitHub API: `.dmg` on macOS, `-win-x64.exe` on
+  Windows, `-linux-x64.deb` (or `arm64`) on Linux. A bare `data-download` follows
+  the visitor's OS, relabelling "Download for macOS"; `data-download="windows"`
+  pins one OS. `data-alt="<os>"` hides an element for visitors on that OS.
 - `assets/`: the app icon, resized from `trek/resources/icon.png`.
 
 Deploys as-is to any static host (GitHub Pages, Netlify, Cloudflare Pages, S3).
