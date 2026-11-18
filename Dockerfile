@@ -4,6 +4,7 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY index.html styles.css main.js /usr/share/nginx/html/
 COPY assets /usr/share/nginx/html/assets
 COPY compare /usr/share/nginx/html/compare
+COPY privacy /usr/share/nginx/html/privacy
 
 EXPOSE 80
 

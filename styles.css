@@ -573,3 +573,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .device .box { width: 52px; }
   .foot-grid { grid-template-columns: 1fr 1fr; }
 }
+
+/* ---------- Legal pages ---------- */
+.legal { background: none; padding-top: 32px; }
+.prose { max-width: 720px; margin: 0 auto; color: var(--dim); font-size: 16.5px; line-height: 1.7; }
+.prose h2 { margin: 48px 0 12px; font-size: 24px; line-height: 1.25; letter-spacing: -0.025em; color: var(--heading); }
+.prose p, .prose ul { margin: 0 0 16px; }
+.prose ul { padding-left: 22px; }
+.prose li { margin: 0 0 10px; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose a, .foot-bottom a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.25); }
+.prose a:hover, .foot-bottom a:hover { color: var(--heading); }
+.prose code { font-size: .86em; color: var(--ink); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; border: 1px solid var(--border); }
