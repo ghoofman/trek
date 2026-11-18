@@ -56,7 +56,7 @@ if (downloadLinks.length) {
     .catch(() => {});
 }
 
-// Mobile beta sign-up. nginx proxies this to the waitlist container (waitlist/),
+// Android beta sign-up. nginx proxies this to the waitlist container (waitlist/),
 // which stores the address in Postgres. Set it to "" to close sign-ups;
 // the form then says so instead of pretending to save the address.
 const WAITLIST_URL = "/api/waitlist";
@@ -93,13 +93,7 @@ if (waitlist) {
       });
       if (res.ok) {
         waitlist.classList.add("done");
-        const platform = new FormData(waitlist).get("platform");
-        say(
-          platform === "ios"
-            ? "You're in. We'll email you when the iOS app is live."
-            : "You're in. We'll email your invite to the Android beta soon.",
-          "ok",
-        );
+        say("You're in. We'll email your invite to the Android beta soon.", "ok");
         return;
       }
       button.disabled = false;
