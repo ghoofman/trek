@@ -88,6 +88,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-icon { display: grid; place-items: center; width: 34px; height: 34px; margin-left: 4px; border-radius: var(--radius-sm); color: var(--dim); transition: color .2s, background .2s; }
 .nav-icon:hover { color: var(--heading); background: var(--surface-2); }
 .nav-icon svg { width: 20px; height: 20px; }
+.nav-icon + .nav-icon { margin-left: 0; }
 .nav-cta { margin-left: 4px; }
 
 /* ---------- Buttons ---------- */
