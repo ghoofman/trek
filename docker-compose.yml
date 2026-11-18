@@ -20,6 +20,7 @@ services:
       - no-new-privileges:true
 
   # POST /api/waitlist, proxied by nginx. Only reachable from the web container.
+  # Joins "egress" too, so it can reach the SMTP server for sign-up emails.
   waitlist:
     build: ./waitlist
     image: trek-waitlist:latest
@@ -30,11 +31,19 @@ services:
       PGUSER: trek
       PGDATABASE: trek
       PGPASSWORD: ${WAITLIST_DB_PASSWORD:?set WAITLIST_DB_PASSWORD in .env}
+      # Sign-up emails; leave SMTP_HOST or NOTIFY_TO empty to turn them off.
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      NOTIFY_FROM: ${NOTIFY_FROM:-}
+      NOTIFY_TO: ${NOTIFY_TO:-}
     depends_on:
       db:
         condition: service_healthy
     networks:
       - internal
+      - egress
     read_only: true
     security_opt:
       - no-new-privileges:true
@@ -65,6 +74,8 @@ networks:
   # No route to the internet; web, waitlist and db talk to each other only.
   internal:
     internal: true
+  # Outbound internet for the waitlist service only (SMTP). Nothing publishes ports on it.
+  egress: {}
 
 volumes:
   trek-db:

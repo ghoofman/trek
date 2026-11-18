@@ -38,14 +38,19 @@ The waitlist form on the homepage posts to `/api/waitlist`. nginx proxies that t
 the `waitlist` container (`waitlist/`, a small Node service), which stores the
 email and platform in the `db` container (Postgres 17, `trek-db` volume).
 
-- `waitlist` and `db` sit on an `internal` network with no internet access. Only
-  `web` joins `proxy`, so neither is reachable from outside.
+- `waitlist` and `db` sit on an `internal` network. Only `web` joins `proxy`, so
+  neither is reachable from outside. `waitlist` also joins `egress` for outbound
+  SMTP; `db` has no internet access.
 - nginx allows 5 sign-ups a minute per visitor (keyed on `CF-Connecting-IP`).
   The service only accepts JSON, ignores honeypot submissions, and gives the same
   response for an address that's already on the list.
 - The service creates the table on startup. Signing up again only changes the
   platform.
 - If `waitlist` is down, the site still serves and the form asks people to retry.
+- If `SMTP_HOST` and `NOTIFY_TO` are set in `.env`, the service emails `NOTIFY_TO`
+  for each new sign-up and each platform change (exact repeats send nothing). The
+  email goes out after the response, so a mail failure is only logged
+  (`docker logs trek-waitlist`) and never fails the form.
 
 Compose needs a database password. On the server, once:
 

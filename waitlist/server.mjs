@@ -2,6 +2,7 @@
 // nginx proxies POST /api/waitlist here; this service is never reachable directly.
 import http from "node:http";
 import pg from "pg";
+import nodemailer from "nodemailer";
 
 const PORT = Number(process.env.PORT || 3000);
 const MAX_BODY = 2048;
@@ -18,6 +19,40 @@ const pool = new pg.Pool({
   max: 5,
 });
 pool.on("error", (err) => console.error("postgres pool error:", err.message));
+
+// Optional: email NOTIFY_TO about each new sign-up (or platform change) over SMTP.
+// Leave SMTP_HOST or NOTIFY_TO unset to turn it off.
+const NOTIFY_TO = process.env.NOTIFY_TO || "";
+const NOTIFY_FROM = process.env.NOTIFY_FROM || process.env.SMTP_USER || "";
+const PLATFORM_NAMES = { ios: "iOS", android: "Android", both: "iOS and Android" };
+const mailer =
+  process.env.SMTP_HOST && NOTIFY_TO
+    ? nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT || 587),
+        // 465 and 2465 speak TLS from the start; other ports upgrade with STARTTLS.
+        secure: [465, 2465].includes(Number(process.env.SMTP_PORT || 587)),
+        auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined,
+        connectionTimeout: 10_000,
+        socketTimeout: 15_000,
+      })
+    : null;
+
+function notify(email, platform, isNew) {
+  if (!mailer) return;
+  const name = PLATFORM_NAMES[platform];
+  const what = isNew ? "New beta sign-up" : "Beta sign-up changed platform";
+  mailer
+    .sendMail({
+      from: NOTIFY_FROM,
+      to: NOTIFY_TO,
+      subject: `${what}: ${email} (${name})`,
+      text:
+        `${what}\n\nEmail: ${email}\nPlatform: ${name}\nTime: ${new Date().toISOString()}\n` +
+        (platform === "ios" ? "" : "\nAdd this address to the Google Play closed test.\n"),
+    })
+    .catch((err) => console.error("notify email failed:", err.message));
+}
 
 async function migrate() {
   await pool.query(`
@@ -91,12 +126,17 @@ async function join(req, res) {
 
   // Signing up twice updates the platform. The response is the same either way,
   // so the endpoint never reveals whether an address is already on the list.
-  await pool.query(
+  // The WHERE skips no-op repeats, so only new sign-ups and platform changes return
+  // a row (and send a notification). xmax = 0 means the row was just inserted.
+  const { rows } = await pool.query(
     `INSERT INTO waitlist (email, platform) VALUES ($1, $2)
-     ON CONFLICT (lower(email)) DO UPDATE SET platform = EXCLUDED.platform, updated_at = now()`,
+     ON CONFLICT (lower(email)) DO UPDATE SET platform = EXCLUDED.platform, updated_at = now()
+       WHERE waitlist.platform IS DISTINCT FROM EXCLUDED.platform
+     RETURNING (xmax = 0) AS inserted`,
     [email, platform]
   );
-  return send(res, 200, { ok: true });
+  send(res, 200, { ok: true });
+  if (rows.length) notify(email, platform, rows[0].inserted);
 }
 
 const server = http.createServer(async (req, res) => {
@@ -131,4 +171,6 @@ process.on("SIGTERM", shutdown);
 process.on("SIGINT", shutdown);
 
 await migrate();
-server.listen(PORT, () => console.log(`waitlist listening on :${PORT}`));
+server.listen(PORT, () =>
+  console.log(`waitlist listening on :${PORT}` + (mailer ? `, emailing sign-ups to ${NOTIFY_TO}` : ", sign-up emails off"))
+);
