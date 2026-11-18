@@ -78,26 +78,21 @@
   <section class="section cmp-fit">
     <div class="wrap">
       <div class="notice reveal">
-        <h2>Conductor is winding down</h2>
+        <h2>Conductor is staying</h2>
         <p>
-          On November 4, 2026, Conductor <a href="https://www.conductor.build/announcement" target="_blank" rel="noopener">announced</a>
-          it is joining Meta. From that day new users can no longer sign up or download the app.
-          Conductor Cloud goes read-only on November 13 and shuts down on November 20, and the
-          local app keeps getting new models and critical bug fixes until early 2027.
+          On November 4, 2026, Conductor <a href="https://www.conductor.build/changelog/0.93.0-conductor-is-joining-meta" target="_blank" rel="noopener">announced</a>
+          it was joining Meta and winding down. On November 13 it
+          <a href="https://www.conductor.build/changelog/0.94.2-conductor-is-back" target="_blank" rel="noopener">changed course</a>:
+          Conductor isn't shutting down, and the team is building again. This page compares the
+          two apps as they stand today.
         </p>
-        <ul class="timeline">
-          <li><b>Nov 4</b>No new sign-ups or downloads</li>
-          <li><b>Nov 13</b>Cloud workspaces go read-only</li>
-          <li><b>Nov 20</b>Conductor Cloud shuts down</li>
-          <li><b>Early 2027</b>Local app updates end</li>
-        </ul>
       </div>
 
       <div class="fit-grid" style="margin-top:24px">
         <div class="fit-card trek reveal">
           <h2><img src="/assets/favicon.png" alt="" width="22" height="22">Choose Trek if you want</h2>
           <ul class="checks">
-            <li>A tool you can download today, with a road ahead of it</li>
+            <li>No account and no analytics</li>
             <li>A desktop app on macOS, Windows and Linux</li>
             <li>The <code>claude</code>, <code>codex</code>, <code>gemini</code> and <code>grok</code> CLIs you've installed, plus local models</li>
             <li>Agents that keep working on your own server after you close the laptop</li>
@@ -106,9 +101,9 @@
           </ul>
         </div>
         <div class="fit-card reveal">
-          <h2>Conductor may still suit you if</h2>
+          <h2>Conductor may suit you if</h2>
           <ul class="checks plain">
-            <li>You already have it installed and lean on its pull request flow: diffs, create PR, CI checks and merge</li>
+            <li>You lean on its pull request flow: diffs, create PR, CI checks and merge</li>
             <li>You use setup, run and archive scripts with ports for every workspace</li>
             <li>You start workspaces straight from Linear or GitHub issues</li>
             <li>You run Cursor or OpenCode agents</li>
@@ -129,12 +124,9 @@
           </thead>
           <tbody>
             <tr class="grp"><th colspan="3" scope="colgroup">Availability</th></tr>
-            <tr><th scope="row">New users</th>
-              <td><span class="mk yes"></span>Download and start today</td>
-              <td><span class="mk no"></span>No new sign-ups or downloads since November 4, 2026 <a class="src" href="https://www.conductor.build/announcement" target="_blank" rel="noopener">source</a></td></tr>
             <tr><th scope="row">Updates</th>
               <td><span class="mk yes"></span>Actively developed</td>
-              <td><span class="mk part"></span>New models and critical fixes until early 2027 <a class="src" href="https://www.conductor.build/changelog/0.93.0-conductor-is-joining-meta" target="_blank" rel="noopener">source</a></td></tr>
+              <td><span class="mk yes"></span>Actively developed again since November 13, 2026 <a class="src" href="https://www.conductor.build/changelog/0.94.2-conductor-is-back" target="_blank" rel="noopener">source</a></td></tr>
             <tr><th scope="row">Desktop app</th>
               <td><span class="mk yes"></span>macOS (Apple Silicon), Windows and Linux</td>
               <td><span class="mk part"></span>macOS <a class="src" href="https://www.conductor.build/docs/installation" target="_blank" rel="noopener">source</a></td></tr>
@@ -156,7 +148,7 @@
               <td><span class="mk yes"></span>Several agents per workspace <a class="src" href="https://www.conductor.build/docs/concepts/parallel-agents" target="_blank" rel="noopener">source</a></td></tr>
             <tr><th scope="row">One agent driving others</th>
               <td><span class="mk yes"></span>Built-in Global panel with trek-dev MCP tools, on your own machines</td>
-              <td><span class="mk part"></span>API, CLI and MCP manage cloud workspaces, which shut down November 20 <a class="src" href="https://www.conductor.build/docs/api/mcp" target="_blank" rel="noopener">source</a></td></tr>
+              <td><span class="mk yes"></span>Agents can create and manage local workspaces and chats <a class="src" href="https://www.conductor.build/changelog/0.95.0-agents-that-manage-your-local-workspaces" target="_blank" rel="noopener">source</a></td></tr>
             <tr><th scope="row">Several repositories in one project</th>
               <td><span class="mk yes"></span>Yes</td>
               <td><span class="mk part"></span>Docs describe one repository per project <a class="src" href="https://www.conductor.build/docs/concepts/workspaces-and-branches" target="_blank" rel="noopener">source</a></td></tr>
@@ -189,7 +181,7 @@
             <tr class="grp"><th colspan="3" scope="colgroup">Remote and privacy</th></tr>
             <tr><th scope="row">Keeps working when you close the laptop</th>
               <td><span class="mk yes"></span>Run trek-server on any macOS, Windows or Linux machine you own</td>
-              <td><span class="mk part"></span>Only in Conductor Cloud, which shuts down November 20; local sessions stop <a class="src" href="https://www.conductor.build/docs/cloud" target="_blank" rel="noopener">source</a></td></tr>
+              <td><span class="mk part"></span>Only in Conductor Cloud; local sessions stop <a class="src" href="https://www.conductor.build/docs/cloud" target="_blank" rel="noopener">source</a></td></tr>
             <tr><th scope="row">Mobile</th>
               <td><span class="mk part"></span>iOS in App Store review, Android in beta</td>
               <td><span class="mk yes"></span>iPhone app that can control your Mac <a class="src" href="https://www.conductor.build/changelog/0.92.0-remote-control" target="_blank" rel="noopener">source</a></td></tr>
@@ -241,10 +233,10 @@
       </div>
       <div class="reveal">
         <p class="eyebrow">Camp</p>
-        <h3>A camp that doesn't close.</h3>
+        <h3>A camp you own.</h3>
         <p>
-          Conductor's way to keep agents running after you close the laptop was its cloud, which
-          shuts down on November 20. Trek's camp is <code>trek-server</code>, running on a Mac,
+          Conductor keeps agents running after you close the laptop in its hosted cloud.
+          Trek's camp is <code>trek-server</code>, running on a Mac,
           Windows or Linux machine you own, with no account and no analytics.
         </p>
       </div>
@@ -278,7 +270,7 @@
           request flow takes a workspace from a Linear or GitHub issue through a diff viewer, PR
           creation with drafted descriptions, CI checks and review comments to merge. Its setup,
           run and archive scripts give every workspace its own ports, and its iPhone app can drive
-          your Mac. If you already have it installed, it will keep working into early 2027.
+          your Mac.
         </p>
       </div>
     </div>
