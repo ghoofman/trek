@@ -56,6 +56,33 @@ if (downloadLinks.length) {
     .catch(() => {});
 }
 
+// Umami click events. Umami's script records a click on any element carrying
+// data-umami-event, with each data-umami-event-<key> sent as a property. The
+// page path is recorded by Umami already; "placement" says which part of the
+// page the click came from.
+//   download  { os: mac | windows | linux | ios, placement }
+//   github    { placement }
+//   discord   { placement }
+//   android-beta-signup   sent from the sign-up form below once the address is saved
+const placementOf = (el) =>
+  el.closest(".site-header") ? "header"
+  : el.closest(".site-footer") ? "footer"
+  : el.closest(".hero") ? "hero"
+  : el.closest(".closer") ? "closer"
+  : el.closest("section[id]")?.id || "page";
+
+const track = (a, event, props) => {
+  a.dataset.umamiEvent = event;
+  for (const [key, value] of Object.entries({ ...props, placement: placementOf(a) })) {
+    a.setAttribute(`data-umami-event-${key}`, value);
+  }
+};
+
+downloadLinks.forEach(({ a, os }) => track(a, "download", { os }));
+document.querySelectorAll('a[href^="https://apps.apple.com/"]').forEach((a) => track(a, "download", { os: "ios" }));
+document.querySelectorAll('a[href^="https://github.com/gettrekapp/"]').forEach((a) => track(a, "github"));
+document.querySelectorAll('a[href^="https://discord.gg/"]').forEach((a) => track(a, "discord"));
+
 // Android beta sign-up. nginx proxies this to the waitlist container (waitlist/),
 // which stores the address in Postgres. Set it to "" to close sign-ups;
 // the form then says so instead of pretending to save the address.
@@ -93,6 +120,7 @@ if (waitlist) {
       });
       if (res.ok) {
         waitlist.classList.add("done");
+        window.umami?.track("android-beta-signup");
         say("You're in. We'll email your invite to the Android beta soon.", "ok");
         return;
       }
